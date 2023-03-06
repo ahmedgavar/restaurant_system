@@ -1,0 +1,24 @@
+1_ new project 
+
+	run " vue create restaurant_system "
+	choose manually 
+	choose [vuex , router ,css pre-processor,babbel]
+	choose eslint+prettier
+	choose in pakage.json
+
+2_ installing main packages [ bootstrap jquery ]
+	run " npm i bootstrap jquery normalize.css "
+	run " npm i @popperjs/core "
+	run " npm i axios "
+	run " npm install @vuelidate/core @vuelidate/validators "
+
+3_ import [ bootstrap , normalized css ]
+	in main.js add the following:
+
+	"
+	
+	import "bootstrap";
+	import "bootstrap/dist/css/bootstrap.css";
+	import "normalize.css";
+
+	"
