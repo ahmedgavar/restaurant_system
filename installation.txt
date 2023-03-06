@@ -22,3 +22,10 @@
 	import "normalize.css";
 
 	"
+
+4_ to format code with prettier (format files with eslint)
+	npx eslint (file name ) --fix
+example
+
+	
+	" npx eslint src/main.js --fix " to format main.js file
