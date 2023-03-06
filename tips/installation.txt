@@ -28,4 +28,9 @@
 example
 
 	
-	" npx eslint src/main.js --fix " to format main.js file
+	" npx eslint src/main.js --fix "    to format main.js file 
+
+5_ to run project 
+	run " npm run serve "
+
+npx eslint src\components\HelloWorld.vue --fix
