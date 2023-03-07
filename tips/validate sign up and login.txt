@@ -1,0 +1,7 @@
+1_ import for it in component
+
+    import { useVuelidate } from '@vuelidate/core';
+    import { required, email } from '@vuelidate/validators';
+
+2_ use composition api in vuelidate 
+

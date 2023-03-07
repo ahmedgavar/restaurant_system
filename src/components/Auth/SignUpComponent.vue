@@ -16,18 +16,22 @@
                     <input
                       type="text"
                       id="form3Example1cg"
-                      v-model="name"
-                      class="form-control form-control-lg"
+                      v-model="state.name"
+                      class="form-control form-control-lg"  :class="{ error: v$.name.$errors.length }"
                     />
                     <label class="form-label" for="form3Example1cg"
                       >Your Name</label
                     >
                   </div>
+                  <!-- errors -->
+                  <div class="input-errors" v-for="error of v$.name.$errors" :key="error.$uid">
+                    <div class="error-msg">{{ error.$message }}</div>
+                </div>
 
                   <div class="form-outline mb-4">
                     <input
                       type="email"
-                      v-model="email"
+                      v-model="state.email"
                       id="form3Example3cg"
                       class="form-control form-control-lg"
                     />
@@ -36,10 +40,10 @@
                     >
                   </div>
 
-                  <div class="form-outline mb-4">
+                  <div class="form-outline mb-4" >
                     <input
                       type="password"
-                      v-model="password"
+                      v-model="state.password"
                       id="form3Example4cg"
                       class="form-control form-control-lg"
                     />
@@ -51,7 +55,7 @@
                   <div class="form-outline mb-4">
                     <input
                       type="password"
-                      v-model="confirm_password"
+                      v-model="state.confirm_password"
                       id="form3Example4cdg"
                       class="form-control form-control-lg"
                     />
@@ -77,6 +81,7 @@
                     <button
                       type="submit"
                       class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
+                      @click="signUp()"
                     >
                       Register
                     </button>
@@ -84,7 +89,7 @@
 
                   <p class="text-center text-muted mt-5 mb-0">
                     Have already an account?
-                    <button class="fw-bold text-body" @click="redirectTo({val : 'login'})"><u>Login here</u></button>
+                    <button class="fw-bold text-body btn btn-link" @click="redirectTo({val : 'login'})"><u>Login here</u></button>
                   </p>
                 </form>
               </div>
@@ -97,20 +102,36 @@
 </template>
 
 <script>
+import { reactive } from 'vue';
 import { mapActions } from 'vuex';
+import { useVuelidate } from '@vuelidate/core';
+import { required, email } from '@vuelidate/validators';
 export default {
-
-  data() {
-    return {
+  setup () {
+    const  state = reactive({
       name:"",
-
       email:"",
       password:"",
       confirm_password:"",
+
+    })
+    const rules={
+      name: { required,minlength:3 },
+      email: { required, email },
+      password:{ required },
+      confirm_password:{ required },
     }
+    const v$ = useVuelidate(rules, state)
+    return { state, v$ }
   },
+  
+  
   methods: {
-    ...mapActions(['redirectTo'])
+    ...mapActions(['redirectTo']),
+    signUp(){
+      this.v$.$validate();
+     
+    }
   },
 };
 </script>

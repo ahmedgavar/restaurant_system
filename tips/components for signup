@@ -36,8 +36,31 @@
 </form>
 ----------------------------------------------------------
 
-//redirct from signup page into login and the reverse using vuex 
+//redirct from signup page into login and the reverse using vuex  (or from any place to another )
 
 
-1_ 
+1_  in store/index.js 
+import router from "@/router";
+
+const mutations={
+    redirectTo(state,payload){
+      router.push({name :payload});
+    }
+   
+  };
+
+  const actions={
+    redirectTo({commit},payload){
+      commit('redirectTo',payload.val);
+    }
+  
+  }
+
+  2_  when you want to use 
+  <button class="fw-bold text-body" @click="redirectTo({val : 'login'})"><u>Login here</u></button>
+
+  methods: {
+    ...mapActions(['redirectTo'])
+  },
+
 

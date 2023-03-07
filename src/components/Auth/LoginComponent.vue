@@ -18,7 +18,7 @@
          <div class="pass">Forgot password?</div>
          <input type="submit" value="Login">
          <div class="signup_link">
-           Not a member ? <button type="button" @click="redirectTo({val: 'signup'})"> Signup</button>
+           Not a member ? <button type="button" class="btn btn-link" @click="redirectTo({val: 'signup'})"> Signup</button>
          </div>
            
       
