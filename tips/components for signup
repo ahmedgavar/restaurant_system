@@ -1,0 +1,43 @@
+
+1_ add SignUpcomponent.vue file in components/Auth  then fill content 
+2_ in signup view  call it 
+    A_ in template add 
+      <SignUpComponent></SignUpComponent>
+
+    B_ in script add 
+        export default ({
+            name: "SignUp",
+            components: {
+            SignUpComponent
+            },
+        });
+3_ add routes for it . in router/index.js as following 
+
+{
+    import SignUp from "../views/Auth/Signup.vue";
+    {
+        path: "/sign-up",
+        //route name 
+        name: "signup"
+        component:SignUp,
+      },
+
+  },
+// in index.js 
+[ component is the name of Signup view] 
+
+4_  in app.vue add 
+<router-link to="/sign-up">SignUp</router-link>
+
+
+5_ to prevent default for form 
+<form @click.prevent >
+
+</form>
+----------------------------------------------------------
+
+//redirct from signup page into login and the reverse using vuex 
+
+
+1_ 
+

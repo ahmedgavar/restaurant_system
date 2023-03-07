@@ -1,10 +1,6 @@
 <template>
   <section
-    class="vh-100 bg-image"
-    style="
-      background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');
-    "
-  >
+    class="vh-100 bg-image ">
     <div class="mask d-flex align-items-center h-100 gradient-custom-3">
       <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -15,11 +11,12 @@
                   Create an account
                 </h2>
 
-                <form>
+                <form @click.prevent>
                   <div class="form-outline mb-4">
                     <input
                       type="text"
                       id="form3Example1cg"
+                      v-model="name"
                       class="form-control form-control-lg"
                     />
                     <label class="form-label" for="form3Example1cg"
@@ -30,6 +27,7 @@
                   <div class="form-outline mb-4">
                     <input
                       type="email"
+                      v-model="email"
                       id="form3Example3cg"
                       class="form-control form-control-lg"
                     />
@@ -41,6 +39,7 @@
                   <div class="form-outline mb-4">
                     <input
                       type="password"
+                      v-model="password"
                       id="form3Example4cg"
                       class="form-control form-control-lg"
                     />
@@ -52,6 +51,7 @@
                   <div class="form-outline mb-4">
                     <input
                       type="password"
+                      v-model="confirm_password"
                       id="form3Example4cdg"
                       class="form-control form-control-lg"
                     />
@@ -75,7 +75,7 @@
 
                   <div class="d-flex justify-content-center">
                     <button
-                      type="button"
+                      type="submit"
                       class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
                     >
                       Register
@@ -84,7 +84,7 @@
 
                   <p class="text-center text-muted mt-5 mb-0">
                     Have already an account?
-                    <a href="#!" class="fw-bold text-body"><u>Login here</u></a>
+                    <button class="fw-bold text-body" @click="redirectTo({val : 'login'})"><u>Login here</u></button>
                   </p>
                 </form>
               </div>
@@ -96,12 +96,23 @@
   </section>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue'
-  export default defineComponent ({
-    name: 'SignUpForm',
-    
-  })
+<script>
+import { mapActions } from 'vuex';
+export default {
+
+  data() {
+    return {
+      name:"",
+
+      email:"",
+      password:"",
+      confirm_password:"",
+    }
+  },
+  methods: {
+    ...mapActions(['redirectTo'])
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -122,6 +133,10 @@
     rgba(132, 250, 176, 0.5),
     rgba(143, 211, 244, 0.5)
   );
+}
+.bg-image{
+  background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');
+
 }
 .gradient-custom-4 {
   /* fallback for old browsers */

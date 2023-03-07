@@ -33,4 +33,4 @@ example
 5_ to run project 
 	run " npm run serve "
 
-npx eslint src\components\HelloWorld.vue --fix
+npx eslint src/components/HelloWorld.vue --fix

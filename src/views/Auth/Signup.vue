@@ -1,14 +1,14 @@
 <template>
-  <SignUpForm></SignUpForm>
+  <SignUpComponent></SignUpComponent>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue'
-  import "@/components/Auth/SignUpForm.vue"
-  export default defineComponent ({
-   
-    
-  })
+<script>
+import SignUpComponent from "@/components/Auth/SignUpComponent.vue";
+export default ({
+  name: "SignUp",
+  components: {
+    SignUpComponent
+  },
+});
 </script>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
