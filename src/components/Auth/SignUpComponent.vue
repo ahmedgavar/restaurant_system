@@ -105,7 +105,7 @@
 import { reactive } from 'vue';
 import { mapActions } from 'vuex';
 import { useVuelidate } from '@vuelidate/core';
-import { required, email } from '@vuelidate/validators';
+import { required, email ,minLength} from '@vuelidate/validators';
 export default {
   setup () {
     const  state = reactive({
@@ -115,12 +115,13 @@ export default {
       confirm_password:"",
 
     })
-    const rules={
+    const rules=computed (() =>({
       name: { required,minlength:3 },
       email: { required, email },
       password:{ required },
       confirm_password:{ required },
-    }
+    
+  }))
     const v$ = useVuelidate(rules, state)
     return { state, v$ }
   },
@@ -130,6 +131,12 @@ export default {
     ...mapActions(['redirectTo']),
     signUp(){
       this.v$.$validate();
+      if(!this.v$.$errors){
+        console.log('yes');
+      }
+      else{
+        console.log('no');
+      }
      
     }
   },
