@@ -1,4 +1,7 @@
 <template>
+  <div>
+
+  
   <section
     class="vh-100 bg-image ">
     <div class="mask d-flex align-items-center h-100 gradient-custom-3">
@@ -27,7 +30,7 @@
                   <div class="input-errors" v-for="error of v$.name.$errors" :key="error.$uid">
                     <div class="error-msg">{{ error.$message }}</div>
                 </div>
-
+                  <!-- end errors -->
                   <div class="form-outline mb-4">
                     <input
                       type="email"
@@ -39,6 +42,11 @@
                       >Your Email</label
                     >
                   </div>
+                   <!-- errors -->
+                   <div class="input-errors" v-for="error of v$.email.$errors" :key="error.$uid">
+                    <div class="error-msg">{{ error.$message }}</div>
+                </div>
+                  <!-- end errors -->
 
                   <div class="form-outline mb-4" >
                     <input
@@ -51,6 +59,11 @@
                       >Password</label
                     >
                   </div>
+                    <!-- errors -->
+                    <div class="input-errors" v-for="error of v$.password.$errors" :key="error.$uid">
+                    <div class="error-msg">{{ error.$message }}</div>
+                </div>
+                  <!-- end errors -->
 
                   <div class="form-outline mb-4">
                     <input
@@ -63,6 +76,11 @@
                       >Repeat your password</label
                     >
                   </div>
+                    <!-- errors -->
+                    <div class="input-errors" v-for="error of v$.confirm_password.$errors" :key="error.$uid">
+                    <div class="error-msg">{{ error.$message }}</div>
+                </div>
+                  <!-- end errors -->
 
                   <div class="form-check d-flex justify-content-center mb-5">
                     <input
@@ -99,13 +117,16 @@
       </div>
     </div>
   </section>
+  </div>
 </template>
 
 <script>
 import { reactive } from 'vue';
 import { mapActions } from 'vuex';
 import { useVuelidate } from '@vuelidate/core';
-import { required, email ,minLength} from '@vuelidate/validators';
+import { required, email ,minLength,sameAs} from '@vuelidate/validators';
+import { computed } from 'vue';
+
 export default {
   setup () {
     const  state = reactive({
@@ -115,11 +136,14 @@ export default {
       confirm_password:"",
 
     })
-    const rules=computed (() =>({
-      name: { required,minlength:3 },
-      email: { required, email },
-      password:{ required },
-      confirm_password:{ required },
+    const rules=computed ((() =>{
+      return {
+        name: { required,minLength:minLength(5)},
+        email: { required, email },
+        password:{ required, minLength:minLength(9)},
+        confirm_password:{ required , sameAsPassword: sameAs(state.password),},
+      };
+     
     
   }))
     const v$ = useVuelidate(rules, state)

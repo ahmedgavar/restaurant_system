@@ -5,18 +5,29 @@
     <form method="post">
       <div class="txt_field">
       
-        <input type="text" required v-model="email"> 
+        <input type="text" required v-model="state.email"> 
         <span></span>
         <label>Email</label>
-      </div>
+           
+          </div>
+           <!-- errors -->
+           <div class="input-errors" v-for="error of v$.email.$errors" :key="error.$uid">
+                    <div class="error-msg">{{ error.$message }}</div>
+                </div>
+                  <!-- end errors -->
      
        <div class="txt_field">
-            <input type="password" required v-model="password"> 
+            <input type="password" required v-model="state.password"> 
             <span></span>
             <label>Password</label>
         </div>
+            <!-- errors -->
+            <div class="input-errors" v-for="error of v$.password.$errors" :key="error.$uid">
+                    <div class="error-msg">{{ error.$message }}</div>
+              </div>
+                  <!-- end errors -->
          <div class="pass">Forgot password?</div>
-         <input type="submit" value="Login">
+         <input type="submit" value="Login" @click="login()">
          <div class="signup_link">
            Not a member ? <button type="button" class="btn btn-link" @click="redirectTo({val: 'signup'})"> Signup</button>
          </div>
@@ -30,22 +41,46 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-
+import { mapActions, } from 'vuex';
+import { reactive } from 'vue';
+import { useVuelidate } from '@vuelidate/core';
+import { required, email ,minLength,sameAs} from '@vuelidate/validators';
+import { computed } from 'vue';
   export default  ({
-    data() {
-    return {
+    setup() {
+      const state = reactive({
       email:"",
       password:"",
       
-    }
-  },
+    })
+      const rules=computed ((() =>{
+      return {
+      
+        email: { required, email },
+        password:{ required, minLength:minLength(9)},
+        
+      };
+     
+    
+  }));
+      
+  const v$ = useVuelidate(rules, state)
+    return { state, v$ }
+    },
+   
   methods: {
-    ...mapActions (['redirectTo'])
-    // redirectToSignUp(){
-    //   this.$router.push({name:'signup',});
+    ...mapActions (['redirectTo']),
 
-    // }
+     login(){
+      this.v$.$validate();
+      if(!this.v$.$errors){
+        console.log('yes');
+      }
+      else{
+        console.log('no');
+      }
+     
+    }
   },
   })
 </script>
