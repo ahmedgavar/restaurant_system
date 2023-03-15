@@ -126,6 +126,7 @@ import { mapActions } from 'vuex';
 import { useVuelidate } from '@vuelidate/core';
 import { required, email ,minLength,sameAs} from '@vuelidate/validators';
 import { computed } from 'vue';
+import axios from 'axios';
 
 export default {
   setup () {
@@ -153,14 +154,33 @@ export default {
   
   methods: {
     ...mapActions(['redirectTo']),
-    signUp(){
+   async signUp(){
       this.v$.$validate();
+
       if(!this.v$.$errors){
-        console.log('yes');
-      }
-      else{
+        console.log('success');
+        let result=await axios.post("http://localhost:3000/users",{
+          name: "llllllhhhhhhhh",
+          email:"llllllhhhhhhhh@dd.com",
+          password: "llllllhhhhhhhh",
+
+        },{
+          headers:{
+            'Accept':'application/json',
+            'Content-Type':'application/json'
+
+          }
+        });
+        if(result.status==201){
+          console.log('user created');
+        }
+        else{
         console.log('no');
       }
+        
+      }
+     
+     
      
     }
   },

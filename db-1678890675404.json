@@ -5,14 +5,12 @@
       "name": "json-server",
       "email": "typicode",
       "password": "123456789"
-      
     },
     {
       "id": 2,
       "name": "json-server",
       "email": "fffffff",
-      "password": "123456789" 
+      "password": "123456789"
     }
   ]
- 
 }
